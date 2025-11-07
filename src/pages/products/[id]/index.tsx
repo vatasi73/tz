@@ -12,7 +12,6 @@ import ProductLoadingError from "../../../components/ProductLoadingError";
 import DetailProductCard from "../../../components/DetailProductCard";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AppButton from "@/components/ui/AppButton";
-import * as theme from "./indexTheme";
 
 export default function ProductDetailPage() {
   const { query } = useRouter();
@@ -33,12 +32,19 @@ export default function ProductDetailPage() {
   const liked = id !== undefined ? likedIds.includes(id) : false;
 
   return (
-    <Container sx={theme.container} maxWidth="md">
+    <Container
+      sx={{
+        py: 4,
+      }}
+      maxWidth="md"
+    >
       <AppButton
         component={Link}
         href="/products"
         startIcon={<ArrowBackIcon />}
-        sx={theme.backButton}
+        sx={{
+          mb: 3,
+        }}
       >
         Назад к списку
       </AppButton>

@@ -5,7 +5,6 @@ import { addProduct, updateProduct } from "../../store/slices/productsSlice";
 import { Box, Paper, Typography } from "@mui/material";
 import ProductFormFields from "../../components/ProductFormFields";
 import ActionButtons from "../../components/ActionButtons";
-import * as theme from "./indexTheme";
 
 export default function CreateProductPage() {
   const dispatch = useAppDispatch();
@@ -88,7 +87,13 @@ export default function CreateProductPage() {
   }
 
   return (
-    <Box sx={theme.pageWrapper}>
+    <Box
+      sx={{
+        maxWidth: 640,
+        mx: "auto",
+        p: 3,
+      }}
+    >
       <Typography variant="h5" component="h1" gutterBottom>
         {productToEdit ? "Редактирование продукта" : "Создание продукта"}
       </Typography>
@@ -96,7 +101,13 @@ export default function CreateProductPage() {
       <Paper
         component="form"
         onSubmit={onSubmit}
-        sx={theme.paperWrapper}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          p: 3,
+          mt: 2,
+        }}
         elevation={3}
       >
         <ProductFormFields

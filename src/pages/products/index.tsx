@@ -6,24 +6,28 @@ import ProductListFilters from "@/components/ProductListFilters";
 import ProductCard from "@/components/ProductCard";
 import PaginationComponent from "@/components/PaginationComponent";
 import useProductPagination from "@/components/hooks/useProductPagination";
-import EmptyStateMessage from "@/components/EmptyStateMessage"; 
-import * as theme from "./indexTheme";
+import EmptyStateMessage from "@/components/EmptyStateMessage";
 
 export default function ProductsPage() {
   const dispatch = useAppDispatch();
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
-  const [sortBy, setSortBy] = useState<"none" | "priceAsc" | "priceDesc" | "titleAsc" | "titleDesc">("none");
+  const [sortBy, setSortBy] = useState<
+    "none" | "priceAsc" | "priceDesc" | "titleAsc" | "titleDesc"
+  >("none");
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const { paginated, currentPage, totalPages, setPage, isFavoritesEmpty, isSearchEmpty } = useProductPagination(
-    showOnlyFavorites,
-    search,
-    sortBy
-  );
+  const {
+    paginated,
+    currentPage,
+    totalPages,
+    setPage,
+    isFavoritesEmpty,
+    isSearchEmpty,
+  } = useProductPagination(showOnlyFavorites, search, sortBy);
 
   return (
     <Box>
@@ -40,7 +44,14 @@ export default function ProductsPage() {
       ) : isSearchEmpty ? (
         <EmptyStateMessage message="По вашему запросу ничего не найдено." />
       ) : (
-        <Box sx={theme.gridContainer}>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+            gap: 2,
+            marginTop: 2,
+          }}
+        >
           {paginated.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
